@@ -71,7 +71,6 @@ const TypingIndicator = () => (
 
 // ─── Quick suggestion chips ────────────────────────────────────────────────────
 const SUGGESTIONS = [
-  "How do I add a new project?",
   "What tech stack is used?",
   "How does the rich text editor work?",
   "What API endpoints exist?",
