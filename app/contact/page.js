@@ -10,7 +10,7 @@ import api from '@/lib/api';
 const contactInfo = [
   {
     icon: <Mail size={22} />, label: 'Email', value: 'rthodsachin0766@gmail.com',
-    href: 'mailto:rthodsachin0766@gmail.com', color: '#6366f1', glow: 'rgba(99,102,241,0.3)',
+    href: 'mailto:rathodsachin0766@gmail.com', color: '#6366f1', glow: 'rgba(99,102,241,0.3)',
   },
   {
     icon: <Phone size={22} />, label: 'Phone', value: '+91 9604669232',
