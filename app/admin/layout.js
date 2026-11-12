@@ -4,7 +4,8 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import ChatbotWrapper from '@/components/ui/ChatbotWrapper';
-import { 
+import './admin.css';
+import {
   LayoutDashboard, 
   Briefcase, 
   FileText, 
@@ -30,7 +31,7 @@ const AdminRootLayout = ({ children }) => {
     }
   }, [user, loading, router, isLoginPage]);
 
-  if (loading) return <div className="min-h-screen bg-dark-bg flex items-center justify-center text-white text-3xl font-black animate-pulse uppercase tracking-[0.2em]">Initializing System...</div>;
+  if (loading) return <div className="admin-root min-h-screen bg-dark-bg flex items-center justify-center text-white text-3xl font-black animate-pulse uppercase tracking-[0.2em]">Initializing System...</div>;
 
   if (!user && !isLoginPage) return null;
 
@@ -76,13 +77,13 @@ const AdminRootLayout = ({ children }) => {
   };
 
   // If it's the login page, just render the content without the admin sidebar
-  if (isLoginPage) return <>{children}</>;
+  if (isLoginPage) return <div className="admin-root">{children}</div>;
 
   // Group menu items by category
   const categories = ['MAIN MENU', 'CONTENT STRATEGY', 'PLATFORM SETTINGS'];
 
   return (
-    <div className="min-h-screen bg-[#020817] flex text-white relative">
+    <div className="admin-root min-h-screen bg-[#020817] flex text-white relative">
       <div className="fixed inset-0 bg-mesh opacity-20 pointer-events-none -z-10 bg-[length:200%_200%] animate-gradient" />
       
       {/* SaaS Sidebar */}

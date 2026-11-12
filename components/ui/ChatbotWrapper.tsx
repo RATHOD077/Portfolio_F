@@ -8,6 +8,8 @@ const PortfolioChatbot = dynamic(
   { ssr: false }
 );
 
-export default function ChatbotWrapper() {
-  return <PortfolioChatbot />;
+// showLauncher=false hides the chatbot's own button; the public site opens it
+// from the "Let's talk" contact dock instead.
+export default function ChatbotWrapper({ showLauncher = true }: { showLauncher?: boolean }) {
+  return <PortfolioChatbot showLauncher={showLauncher} />;
 }

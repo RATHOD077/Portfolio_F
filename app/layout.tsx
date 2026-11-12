@@ -1,44 +1,68 @@
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Serif, Instrument_Sans, JetBrains_Mono, Inter, Outfit } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
-import ChatbotWrapper from "@/components/ui/ChatbotWrapper";
+import ThemeProvider from "@/components/site/ThemeProvider";
+import { SITE } from "@/lib/site";
 
-export const metadata = {
-  title: "Sachin Rathod | Fullstack Developer",
-  description: "Portfolio of Sachin Rathod — Fullstack Developer building pixel-perfect, high-performance web apps with React, Node.js & more.",
-  keywords: "Fullstack Developer, Next.js, Node.js, MySQL, React, JavaScript, Portfolio, Sachin Rathod",
-  openGraph: {
-    title: "Sachin Rathod | Fullstack Developer",
-    description: "Building digital experiences that blend innovation with pixel-perfect design.",
-    type: "website",
-    locale: "en_US",
-    url: "https://yourportfolio.com",
-    siteName: "Sachin Rathod Portfolio",
+// Public site fonts
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--nf-serif",
+  display: "swap",
+});
+const sans = Instrument_Sans({ subsets: ["latin"], variable: "--nf-sans", display: "swap" });
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--nf-mono",
+  display: "swap",
+});
+
+// Admin panel fonts — declared here but not preloaded, so public pages never download them.
+const adminSans = Inter({ subsets: ["latin"], variable: "--nf-admin-sans", preload: false, display: "swap" });
+const adminDisplay = Outfit({ subsets: ["latin"], variable: "--nf-admin-display", preload: false, display: "swap" });
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+export const metadata: Metadata = {
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
+  title: {
+    default: `${SITE.name} — Freelance Fullstack Developer in Mumbai`,
+    template: `%s — ${SITE.name}`,
   },
+  description: SITE.description,
+  authors: [{ name: SITE.name }],
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    locale: "en_US",
+    title: `${SITE.name} — Freelance Fullstack Developer`,
+    description: SITE.description,
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2f0eb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0c0b" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col relative"
-        style={{ background: '#020817', color: '#f8fafc' }}>
-
-        {/* Original backgrounds */}
-        <div className="bg-grid fixed inset-0 opacity-40 mix-blend-overlay pointer-events-none z-[-2]"></div>
-        <div className="bg-noise fixed inset-0 opacity-20 pointer-events-none z-[-1]"></div>
-        <div className="aurora"></div>
-
-        <AuthProvider>
-          <Navbar />
-          <main className="flex-grow z-10 relative">
-            {children}
-          </main>
-          <Footer />
-        </AuthProvider>
-
-        {/* AI Chatbot */}
-        <ChatbotWrapper />
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${serif.variable} ${sans.variable} ${mono.variable} ${adminSans.variable} ${adminDisplay.variable}`}
+    >
+      <body>
+        <ThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
