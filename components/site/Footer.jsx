@@ -105,7 +105,12 @@ export default function Footer() {
       </div>
 
       <div className="container-site label-mono flex flex-wrap items-center justify-between gap-4 pb-6 text-dim">
-        <span>© {new Date().getFullYear()} {SITE.name}</span>
+        <span>
+          © {new Date().getFullYear()} {SITE.name} ·{" "}
+          <Link href="/privacy" className="link-line">
+            Privacy
+          </Link>
+        </span>
         <span className="hidden md:inline">Built with Next.js, GSAP &amp; Lenis</span>
         <button type="button" onClick={toTop} className="link-line uppercase">
           Back to top ↑
