@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import Media from "@/components/site/Media";
 import ParallaxMedia from "@/components/site/ParallaxMedia";
 import { Reveal, RevealText } from "@/components/site/Reveal";
-import { getProject, getProjects } from "@/lib/content";
+import { TestimonialQuote } from "@/components/site/Testimonials";
+import { getProject, getProjects, getTestimonials } from "@/lib/content";
 import { sanitizeCms } from "@/lib/sanitize";
 import { CATEGORY_LABELS, SITE, STATUS_LABELS } from "@/lib/site";
 
@@ -28,8 +29,13 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
-  const [project, all] = await Promise.all([getProject(slug), getProjects({ soft: true })]);
+  const [project, all, testimonials] = await Promise.all([
+    getProject(slug),
+    getProjects({ soft: true }),
+    getTestimonials(),
+  ]);
   if (!project) notFound();
+  const clientWords = testimonials.filter((t) => t.projectId === project.id);
 
   const index = Math.max(0, all.findIndex((p) => p.slug === project.slug));
   const next = all.length > 1 ? all[(index + 1) % all.length] : null;
@@ -168,6 +174,17 @@ export default async function ProjectPage({ params }) {
               {project.images.map((src, i) => (
                 <Reveal key={src} delay={(i % 2) * 0.08} className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-surface">
                   <Media src={src} alt={`${project.title} — screenshot ${i + 1}`} sizes="(min-width: 768px) 30vw, 100vw" />
+                </Reveal>
+              ))}
+            </div>
+          )}
+
+          {clientWords.length > 0 && (
+            <div className="mt-20 space-y-12">
+              <p className="label-mono text-dim">(What the client said)</p>
+              {clientWords.map((t) => (
+                <Reveal key={t.id}>
+                  <TestimonialQuote t={t} />
                 </Reveal>
               ))}
             </div>

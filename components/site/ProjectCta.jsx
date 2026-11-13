@@ -6,7 +6,7 @@ import Magnetic from "./Magnetic";
 // Hover: orange fills the pill outward from the arrow, the label rolls up and
 // is replaced in the new colour, and the arrow turns. A soft sheen passes over
 // it every few seconds to draw the eye (disabled with reduced motion).
-export default function ProjectCta({ href = "/contact" }) {
+export default function ProjectCta({ href = "/start" }) {
   const label = (
     <>
       Start a <span className="italic">project</span>

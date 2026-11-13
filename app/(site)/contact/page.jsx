@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PageHeader from "@/components/site/PageHeader";
 import ContactForm from "@/components/site/ContactForm";
 import CopyButton from "@/components/site/CopyButton";
@@ -143,6 +144,22 @@ export default function ContactPage() {
         </div>
 
         <div className="md:col-span-6 md:col-start-7">
+          <Reveal>
+            <Link
+              href="/start"
+              className="group mb-12 flex items-center justify-between gap-6 rounded-[4px] border border-line p-5 transition-colors duration-300 hover:border-brand md:p-6"
+            >
+              <span>
+                <span className="label-mono text-brand">Not sure about scope or budget?</span>
+                <span className="mt-2 block text-lg leading-snug">
+                  Plan your project in four quick steps and see a rough price straight away.
+                </span>
+              </span>
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-ink text-canvas transition-colors duration-300 group-hover:bg-brand group-hover:text-brand-ink">
+                →
+              </span>
+            </Link>
+          </Reveal>
           <ContactForm />
         </div>
       </section>

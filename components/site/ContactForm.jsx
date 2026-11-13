@@ -51,7 +51,7 @@ function progress(values) {
   return { done: checks.filter(Boolean).length, total: checks.length };
 }
 
-function Field({ id, label, error, hint, textarea = false, ...props }) {
+export function Field({ id, label, error, hint, textarea = false, ...props }) {
   const Tag = textarea ? "textarea" : "input";
   return (
     <div className="relative">
@@ -95,7 +95,7 @@ function Field({ id, label, error, hint, textarea = false, ...props }) {
   );
 }
 
-function Choice({ legend, options, value, onChange, allowNone = false }) {
+export function Choice({ legend, options, value, onChange, allowNone = false }) {
   return (
     <fieldset>
       <legend className="label-mono mb-4 text-dim">{legend}</legend>

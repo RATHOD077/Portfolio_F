@@ -109,9 +109,9 @@ export default function ContactDock() {
     { key: "ai", label: "Ask AI", sub: "Quick questions about my work", action: openAssistant, icon: <Sparkles size={17} strokeWidth={1.6} /> },
   ];
 
-  // The contact page already lists every channel, and the dock would cover its
-  // "Send message" button.
-  if (pathname === "/contact") return null;
+  // The contact page and the project planner already offer every channel (incl.
+  // WhatsApp), and the dock would cover their form fields and send buttons.
+  if (pathname === "/contact" || pathname === "/start") return null;
 
   const rowClass =
     "group flex min-w-0 flex-1 items-center gap-3.5 rounded-[10px] px-3 py-2.5 text-left transition-colors duration-300 hover:bg-surface focus-visible:bg-surface";

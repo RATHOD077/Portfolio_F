@@ -15,7 +15,8 @@ import {
   LogOut,
   ChevronRight,
   ShieldCheck,
-  PlusCircle
+  PlusCircle,
+  Quote
 } from 'lucide-react';
 
 const AdminRootLayout = ({ children }) => {
@@ -39,6 +40,7 @@ const AdminRootLayout = ({ children }) => {
     { title: 'Overview', icon: <LayoutDashboard />, href: '/admin/dashboard', category: 'MAIN MENU' },
     { title: 'Projects', icon: <Briefcase />, href: '/admin/projects', category: 'CONTENT STRATEGY' },
     { title: 'Blog Articles', icon: <FileText />, href: '/admin/blogs', category: 'CONTENT STRATEGY' },
+    { title: 'Testimonials', icon: <Quote />, href: '/admin/testimonials', category: 'CONTENT STRATEGY' },
     { title: 'Technical Skills', icon: <Settings />, href: '/admin/skills', category: 'PLATFORM SETTINGS' },
     { title: 'Inquiries', icon: <MessageSquare />, href: '/admin/messages', category: 'PLATFORM SETTINGS' },
   ];

@@ -32,7 +32,7 @@ export default function Services({ groups = [] }) {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Magnetic>
                 <Link
-                  href="/contact"
+                  href="/start"
                   className="group inline-flex items-center gap-3 rounded-full bg-brand px-7 py-3.5 font-medium text-brand-ink transition-transform duration-500 ease-expo hover:scale-[1.03]"
                 >
                   Start a project
@@ -73,6 +73,14 @@ export default function Services({ groups = [] }) {
                   </h3>
                   <p className="mt-4 max-w-lg leading-relaxed text-ink/75">{service.text}</p>
                   <p className="label-mono mt-4 text-ink/60">{service.examples}</p>
+                  {service.planType ? (
+                    <Link
+                      href={`/start?type=${service.planType}`}
+                      className="label-mono link-line mt-5 inline-block text-ink transition-colors duration-300 hover:text-brand"
+                    >
+                      Price my {service.title.toLowerCase().replace(/s$/, "")} →
+                    </Link>
+                  ) : null}
                   {tools.length > 0 && (
                     <ul className="mt-6 flex flex-wrap gap-2">
                       {tools.map((tool) => (

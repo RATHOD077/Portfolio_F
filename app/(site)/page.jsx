@@ -7,12 +7,14 @@ import CountUp from "@/components/site/CountUp";
 import PostList from "@/components/site/PostList";
 import Magnetic from "@/components/site/Magnetic";
 import Services from "@/components/site/Services";
+import Testimonials from "@/components/site/Testimonials";
 import { Reveal, RevealText } from "@/components/site/Reveal";
 import {
   getPosts,
   getProjects,
   getResumeUrl,
   getSkills,
+  getTestimonials,
   groupSkills,
   pickFeatured,
   yearsBuilding,
@@ -28,12 +30,24 @@ const STAT_CELL = [
 ];
 
 export default async function HomePage() {
-  const [projects, skills, posts, resume] = await Promise.all([
+  const [projects, skills, posts, resume, testimonials] = await Promise.all([
     getProjects(),
     getSkills(),
     getPosts(),
     getResumeUrl(),
+    getTestimonials(),
   ]);
+
+  // Section numbers after (03) Services, skipping sections that have nothing to show.
+  const numbers = {};
+  let n = 3;
+  for (const [key, shown] of [
+    ["testimonials", testimonials.length > 0],
+    ["stats", projects.length > 0],
+    ["blog", posts.length > 0],
+  ]) {
+    if (shown) numbers[key] = String(++n).padStart(2, "0");
+  }
 
   const featured = pickFeatured(projects, 12);
   const groups = groupSkills(skills);
@@ -98,10 +112,13 @@ export default async function HomePage() {
       {/* (03) Freelance services */}
       <Services groups={groups} />
 
-      {/* (04) Numbers */}
+      {/* Client testimonials (hidden until some are added in the admin panel) */}
+      <Testimonials items={testimonials} number={numbers.testimonials} />
+
+      {/* Numbers */}
       {projects.length > 0 && (
         <section className="container-site pb-24 md:pb-40">
-          <p className="label-mono border-t border-line pt-4 text-dim">(04) — By the numbers</p>
+          <p className="label-mono border-t border-line pt-4 text-dim">({numbers.stats}) — By the numbers</p>
           <div className="grid grid-cols-2 md:grid-cols-4">
             {stats.map((s, i) => (
               <Reveal
@@ -120,12 +137,12 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* (05) Blog */}
+      {/* Blog */}
       {posts.length > 0 && (
         <section className="container-site pb-24 md:pb-36">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
-              <p className="label-mono text-dim">(05) — Blog</p>
+              <p className="label-mono text-dim">({numbers.blog}) — Blog</p>
               <h2 className="mt-4 font-serif text-[clamp(2.8rem,5.5vw,5.5rem)] leading-[0.92] tracking-[-0.02em]">
                 <RevealText text="Notes from the" /> <RevealText text="workbench" className="italic" delay={0.1} />
               </h2>
